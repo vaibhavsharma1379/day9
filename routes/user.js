@@ -70,4 +70,13 @@ router.post('/signin',async(req,res)=>{
         return res.status(500).send(e);
     }
 })
+router.get('/signout',(req,res)=>{
+    try{
+        res.clearCookie('t');
+        return res.status(200).json({message:"cokkie cleared"});
+    }catch(e){
+        return res.status(500).send(e);
+    }
+})
+
 module.exports=router;
