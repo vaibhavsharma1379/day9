@@ -1,8 +1,8 @@
-const jwt=require("jsonwentoken");
+const jwt=require("jsonwebtoken");
 const User = require("../models/userModels");
 const isAuthenticated=async (req,res,next)=>{
     try{
-        const authHeader=req.headers.authorization; //['Bearer',"{TOKEN}"]
+        const authHeader= req.headers.authorization; //['Bearer',"{TOKEN}"]
         console.log(authHeader);
         if(!authHeader){
             return res.status(401).json({
@@ -15,19 +15,20 @@ const isAuthenticated=async (req,res,next)=>{
 
         }
         const decoded=jwt.verify(token,"SECRET MESSAGE");
-        const user=await User.findOne({where:{id:decoded.id}});
+        const user=await User.findOne({where:{id:decoded.user.id}});
         if(!user){
             return res.status(404).json({err:"user not found"});
         }
         req.user=user;
         next();
     }catch(e){
+        console.log(e);
         return res.status(500).send(e);
     }
 }
 
 const isSeller=(req,res,next)=>{
-    if(req.user.isSeller){
+    if(req.user.dataValues.isSeller){
         next();
     }else{
         return res.status(401).json({

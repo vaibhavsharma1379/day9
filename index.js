@@ -10,7 +10,7 @@ app.use(express.static('content'));
 app.use(express.urlencoded({extends:false}));
 
 app.use('/api/v1/user',userRoutes)
-app.use('/api/v1/user',productRoutes);
+app.use("/api/v1/product", productRoutes);
 
 app.listen(PORT,()=>{
     console.log('server is running');
