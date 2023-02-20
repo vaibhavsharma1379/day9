@@ -1,15 +1,15 @@
 const { DataTypes } = require("sequelize");
 const { createDB } = require("../config/db");
 
-const Product = createDB.define("product", {
+const Order = createDB.define("order", {
   id: {
     primaryKey: true,
+    allowNull:false,
     autoIncrement: true,
     type: DataTypes.INTEGER,
   },
-  name: DataTypes.STRING,
-  price: DataTypes.DECIMAL,
-  content: DataTypes.STRING, 
+  productId:DataTypes.INTEGER,
+  buyerId:DataTypes.INTEGER
 });
 
-module.exports = Product;
+module.exports =Order;

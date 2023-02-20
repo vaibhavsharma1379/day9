@@ -27,7 +27,10 @@ router.post('/signup',async(req,res)=>{
         }
         const hashedPassword=await bcrypt.hash(password,(saltOrRounds=10));
         const user={
-            name,email,password:hashedPassword,isSeller
+            name,
+            email,
+            password:hashedPassword,
+            isSeller
         };
         const createdUser=await User.create(user);
         return res.status(200).json({message:`Welcome to Devsnest ${createdUser.name}. Thank you for signing up`});
