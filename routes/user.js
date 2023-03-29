@@ -8,9 +8,43 @@ const{
     validatePassword,
     validateName}=require("../utils/validators");
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - name
+ *         - email
+ *         - password
+ *         - isSeller
+ *       properties:
+ *         id:
+ *           type: INTEGER
+ *           description: The auto-generated id of the user
+ *         name:
+ *           type: STRING
+ *           description: The name of the user
+ *         email:
+ *           type: STRING
+ *           description: The email of the user
+ *         password:
+ *           type: STRING
+ *           description: The password of the user
+ *         isSeller:
+ *           type: BOOLEAN
+ *           description: The role of the user
+ *       example:
+ *         name: Harsh
+ *         email: hk@gmail.com
+ *         password: Harsh@8
+ *         isSeller: false
+ */
+
+
 router.post('/signup',async(req,res)=>{
-    try{
-        const {name,email,password,isSeller}=req.body;
+    try{ const {name,email,password,isSeller}=req.body;
         const existingUser=await User.findOne({where:{email}});
         if(existingUser){
             return res.status(403).json({err:"User already Exist"});
@@ -65,7 +99,7 @@ router.post('/signin',async(req,res)=>{
         })
         res.cookie("t",bearerToken,{expire:new Date()+9999});
         return res.status(200).json({
-            bearerToken
+            bearerToken:bearerToken,message:"Signed In Successfully!"
         })
     }
     catch(e){
