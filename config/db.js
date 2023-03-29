@@ -14,9 +14,9 @@ const connectDB=()=>{
     })
 }
 
+module.exports={createDB,connectDB};
+
 const orderModel=require("../models/orderModels");
 const userModel=require("../models/userModels");
 orderModel.belongsTo(userModel,{foreignKey:"buyerId"});
 userModel.hasMany(orderModel,{foreignKey:"id"});
-
-module.exports={createDB,connectDB};
